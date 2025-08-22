@@ -1,0 +1,8 @@
+*.djvu
+*.autosave.xopp
+*~
+books/
+exams/
+*.ipynb_checkpoints/
+390-fall-2023/
+ph762/
