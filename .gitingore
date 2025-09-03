@@ -1,9 +1,0 @@
-*.djvu
-*.autosave.xopp
-*~
-books/
-exams/
-*.ipynb_checkpoints/
-*.virtual_documents/
-390-fall-2023/
-ph762/
