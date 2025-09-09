@@ -3,6 +3,22 @@
 This is where I'll record hopefully before class what we will be doing. Please check here and read before class, so you'll have an idea of what we will cover that day. 
 
 ---
+# day 5
+
+Now that we have talked through the major operators in python, we need to put this altogether with the python function. Functions in python are small packages of code that can take in input and execute a series of steps based on that input, and optionally return an output. Functions are defined beginning with def statements so something like this:
+
+```
+def myFunction(inputs, go, here, if, necessary):
+    print('this is a function')
+    output = inputs*go*here**(if+necessary)
+    return(output)
+```
+
+Now, we can write functions that can perform a particular calculation with different inputs, and we can begin to keep some of these so we can refer to them again later.
+
+We wrote a couple of functions in class, one for calculating factorials and another for understanding spherical coordinates. For homework do exercise 2.11 and take an honest crack at 2.12.  
+
+---
 # day 4
 
 First here is a Markdown Cheat sheet: [https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
@@ -89,4 +105,8 @@ For the script, I talk through using a shebang like #!/usr/bin/env python. We lo
 For jupyter, we will but using lab not notebook but they are very similar and students should know how to use both.
 
 Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
+
+
+    [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
+    [NbConvertApp] Writing 7374 bytes to README.md
 
