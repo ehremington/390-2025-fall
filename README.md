@@ -3,7 +3,43 @@
 This is where I'll record hopefully before class what we will be doing. Please check here and read before class, so you'll have an idea of what we will cover that day. 
 
 ---
-# day 5
+# day 6 | 250910 W
+
+### Pascal's Triangle
+
+First we will work on Pascal's triangle, since I realized that you don't know about nested loops yet. So we'll get that to work and talk about those.
+
+A nested loop always has a structure like this:
+
+```
+for i in some_kind_of_range:
+    for j in some_other_range_or_list:
+        do_some_stuff_with_i_and_j
+    do_more_stuff_with_i
+```
+
+What this does is loop through one list and at each step loop through another list. These can be related to each other as in our example in class, or can be totally separate. 
+
+### Chapter 3: plotting!
+
+We will also begin working on plotting things. First we will just cook up some "data" by which I mean we will plot a particular function, and then we will look at some options around how to make this look nice. There are MANY options on how to plot things and change different settings, but we will stick to the simplest ones. Here is an example of how to plot:
+
+```
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0,10)
+y = x**2
+
+fig0 = plt.figure()
+ax0 = fig0.add_subplot()
+
+ax0.plot(x, y, 'o', mfc='none')
+```
+This will plot $y=x^2$ from 0 to 10. Notice how I put in the option `'0'` and `mfc='none'` because that is the kind of plot that *I* like. 
+
+---
+# day 5 | 250908 M
 
 Now that we have talked through the major operators in python, we need to put this altogether with the python function. Functions in python are small packages of code that can take in input and execute a series of steps based on that input, and optionally return an output. Functions are defined beginning with def statements so something like this:
 
@@ -108,5 +144,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 7374 bytes to README.md
+    [NbConvertApp] Writing 8373 bytes to README.md
 
