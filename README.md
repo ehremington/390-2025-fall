@@ -3,6 +3,28 @@
 This is where I'll record hopefully before class what we will be doing. Please check here and read before class, so you'll have an idea of what we will cover that day. 
 
 ---
+# day 7  | 250912 F
+
+Now that we have the basics of plotting we need to practice this with some real data and see what trouble we run into. So today we will import and trim data, and then prepare some plots based on that data. We also want to check in and follow up on the last few assignments that you have, namely finishing printing out Pascal's triangle as well as finding a python graphing module and showing that off to the class.
+
+To import some data to python, there are a variety of ways, each depending on how complex the data is. Today, we will start with a simple example of two columns of data in a file. The file extension is readable by python as simply a comma separated value or csv file. Many files that have various extensions are like this, and many/most experimental apparatus will have the ability to export data in such a format.
+
+After loading the data using np.loadtxt(), we have to take the transform of this file using data.T, and then we are able to use matplotlib to plot the data just like before.
+
+Next, we will choose a more complicated file, and talk through how we can import it using pandas. Pandas is a python library specifically for handling more complicated data files than numpy is good for. Notice for instance that pandas handles text headers to give a column a particular name. Each pandas column acts like an individual numpy array.
+
+In this case we have a file that has a large header that we need to deal with, as well as a format problem. We will use a statement like this to load the data into what is called a "Data Frame", which is really just python's word for a database.
+```
+data = pd.read_csv('filename.txt', header=55, sep='\t', encoding='windows-1252')
+```
+Now some of this is specific to this particular file, but these are some of the options you may need to use from time to time. Each column in this data file already has a name
+
+This will lead us into a discussion of formats and what you can do with them. For example did you know that you can unzip a word document? 
+
+From here, work exercises 3.1 and 3.2. 
+
+
+---
 # day 6 | 250910 W
 
 ### Pascal's Triangle
@@ -144,5 +166,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 8373 bytes to README.md
+    [NbConvertApp] Writing 9645 bytes to README.md
 
