@@ -2,8 +2,54 @@
 
 This is where I'll record hopefully before class what we will be doing. Please check here and read before class, so you'll have an idea of what we will cover that day. 
 
+
 ---
-# day 7  | 250912 F
+# day 11 | 250922 M
+
+Today we will continue with integration, but we will flip the script and you will work together to implement Simpson's Rule and do exercises 5.2 and 5.3. Simpson's Rule is based on fitting a parabola to a portion of the curve we are interested in and then iterating over each parabola. So look at equation 5.9 on page 146 in the textbook and figure out how to pull that off in python using the numpy.sum function.
+
+Also while we are here I want to emphasize something to you. Look at the author's comment after the problem on page 148. He says, "Note that there is no known way to perform this particular integral analytically, so numerical approaches are the only way forward." This is a very important point and one worth keeping in mind as we go through this class. We are doing things that are increasingly impossible to be done any other way. So computational physics is often not a short cut or a way out of certain problems, but rather it is the only way to get a particular answer. 
+
+---
+# day 10 | 250919 F
+
+Integration is essentially addition and so there are fewer problems with dividing by a small number like we had with differentiation. But we still need to be careful about errors like round off. Also similar to differentiation, there is a forward and backward way to integrate, and neither of these are accurate enough to be useful, but there is something in between, in the case of integration that is the trapezoidal rule. And like with differentiation there will be a slightly more complicated method, but also even better than trapezoidal and that is Simpson's rule. 
+
+We will start with Riemann's definition of the integral:
+
+$$\int^b_a f(x) \mathrm{d}x = \lim_{N\rightarrow \infty} \sum_{n=0}^{N-1} f(x_n) h = \lim_{N\rightarrow \infty} \sum_{n=1}^{N} f(x_n) h$$
+
+This simply tells us that these right and left sums are the same when the divisions go to infinity. But of course we can't go to infinity. So, a trapezoidal rule is an average of both the right and left rectangle rules is a way of averaging both:
+
+$$\int^b_a f(x) \mathrm{d}x \approx \sum_{n=0}^{N-1} \frac{f(x_{n+1}) +f(x_n)}{2}h$$
+This has the effect after factoring out h/2 and expanding the sum of: 
+$$\int^b_a f(x) \mathrm{d}x \approx \frac{h}{2}[f(x_0) + 2f(x_1) + 2f(x_3)+...+ 2f(x_{N-1}) + f(x_{N})]$$
+
+Which can be rewritten as
+$$\int^b_a f(x) \mathrm{d}x \approx \frac{h}{2}[f(a) + f(b)] + \sum_{n=1}^{N-1}f(x_n)h$$
+
+And now we can calculate this sum much faster. Implementing this can have some "gotchas", so we have to be careful about how we go about pulling this calculation off. 
+
+Do exercise 5.1 to practice this. But also go back and work on exercise 3.8 as a call back to that chapter on graphing. This is a classic example of a problem that *seems* very difficult, but actually the author walks you through nicely.
+
+---
+# day 9 | 250917 W
+
+We used most of our time to talk about homework questions and clean up some previous comments. We also talked a good bit about calculus and specifically integration which we will do a lot of moving forward. We talked about Reimann sums and began to cook up a function that would do this for us, but ran out of time.
+
+---
+# day 8 | 250915 M
+
+Today we will practice plotting with real data that would be gathered from some instrument and which you want to plot for your scientific notebook or for a paper. Now that we have the basics of plotting we need to practice this with some real data and see what trouble we run into. So today we will import and trim data, and then prepare some plots based on that data.  
+
+To import some data to python, there are a variety of ways, each depending on how complex the data is. Today, we will start with a simple example of two columns of data in a file. The file extension is readable by python as simply a `comma separated value` or `csv` file. Many files that have various extensions are like this, and many/most experimental apparatus will have the ability to export data in such a format. 
+
+After loading the data using `np.loadtxt()`, we have to take the transform of this file using `data.T`, and then we are able to use matplotlib to plot the data just like before.
+
+Pandas has a more complicated but more capable function called `pd.read_csv()`. This is our first encounter with data stored as a pandas `dataframe` object, but we will practice how to use it to plot some data. 
+
+---
+# day 7 | 250912 F
 
 Now that we have the basics of plotting we need to practice this with some real data and see what trouble we run into. So today we will import and trim data, and then prepare some plots based on that data. We also want to check in and follow up on the last few assignments that you have, namely finishing printing out Pascal's triangle as well as finding a python graphing module and showing that off to the class.
 
@@ -166,5 +212,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 9645 bytes to README.md
+    [NbConvertApp] Writing 11721 bytes to README.md
 
