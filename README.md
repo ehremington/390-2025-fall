@@ -4,6 +4,299 @@ This is where I'll record hopefully before class what we will be doing. Please c
 
 
 ---
+# day 22 | 251020 M
+
+I discovered a problem with our secant method and have a fix for it below. This is embarrassing but it is important to realize that it can be hard to figure out a bug with code when the code almost works. There was nothing telling me it was broken and the answers it gave were frequently correct, but the problem was deeply buried and finally raised its head the other day (day 20) when we were working on solving a fairly simple equation. So go check the updated notes from day 20 to see what happened.
+
+We did this in class in excel but then bonked when things weren't working correctly. So here is a correct way to do it for next time. 
+
+We were learning Euler's (pronounced Oilah's) method in class and it is very simple to put into play with Excel to start off with. We will start off with first order differential equations. So for example we came up with this equation:
+
+$$\frac{dy}{dx} = x^2+x-1 \, \mathsf{where} \, y(0) = -1$$
+
+This is easy enough to simply **integrate**, and that is a good thing to know! Very often in DiffEQ (that's what we call Differential Equations) simply integrating, or even guessing and checking is a good way to solve things. What we are doing in Computational Physics is learning a slightly different way to calculate the answer, but even we need something to compare our answer to. So back to it.
+
+Using Euler's method we approximate the next place with the following bit of logic:
+
+$$y_{n+1} = y_{n} + \frac{dy}{dx} \cdot dx $$
+
+So that is exactly the logic we put into Excel. 
+
+| x | y | dydx |
+|---|---|---|
+| 0 | initial condition | diff eq |
+| step | =B2 + C2*(A3-A2) | diff eq |
+| ... | ... | ... |
+
+I don't know if that table helps but that is how we do it. And we can check this by plotting the actual solution, since this is a simple enough expression that we can use some simple math to find it. 
+
+$$\int(x^2+x-1)dx = \frac{1}{3}x^3+\frac{1}{2}x^2-x +C$$
+
+and we can find *C* by using our initial condition \\(y(0) = -1$\\). That means \\(C=-1\\). And this works great!
+
+And we could do something like this for every **first order** differential equation. So another one we had in class was this: 
+
+$$\frac{dy}{dx} = x^2 e^{-x} -1  \mathsf{where} \, y(0) = -1$$
+
+and we got a solution for that which I won't even bother to check.
+
+Another one is this one
+
+$$\frac{dy}{dx} = -y $$
+
+Now that one seems a little more difficult because it is not as straightforward to integrate. But it is still a *separable* differential equation, since I can separate the variables to their own sides. Like this:
+
+$$\frac{dy}{y} = -dx $$
+
+Now I can integrate both sides:
+
+$$\int \frac{dy}{y} = -\int dx $$
+
+and that means
+
+$$ \ln(y) = -x + C$$
+
+which further simplifies to 
+
+$$ y = e^{-x + C} = A e^{-x} $$
+
+And **THAT** is the step I bonked on in class today. But we are now able to solve for that constant `A` by doing this:
+
+$$y(0) = -1 = A $$
+
+So that tells us exactly what to do with our "correct" solution. Check out `day22-excel-file.xsls` for the details on how to plug this into excel and what the plots should look like. Below, I have included how to plot these files quickly using `pandas`. This is slightly different to how we have done it in the past but it is good to learn a few differences. Just make sure that the excel file is in the same directory as the jupyter file you are in.
+
+```python
+df = pd.read_excel('day22-excel-file.xlsx', sheet_name='Sheet2')
+
+df.plot('x', 'y')
+```
+
+
+---
+# day 21 | 251017 F
+
+We are going to make a jump to solving differential equations. We are going to start with the simplest method of solving differential equations, Euler's method, and we are going to do it with excel or google sheets to get a sense of what is going on, then we will learn how to code it up in python. But seeing it in excel is a great way to start off.
+
+Euler's Method is all about predicting the value of the function by knowing the value of the derivative and a time interval that has gone by. 
+
+---
+# day 20 | 251015 W
+
+We want to practice using several methods together, and although I messed this up somewhat I'll show you how to do a better problem at the end. But here is the problem at the moment that I would like to solve.
+
+We have the Stephan-Boltzmann Law that says 
+
+$$W = \sigma T^4$$
+
+And what I would like to know is how to solve for T, given that we know a value for W. So we can make W=20, and then apply some method to finding the root of the resulting equation, which is like asking for which value of T is the following function 0.
+
+$$f(T) = \sigma T^4 - 20 => 0$$
+
+So that is the function that we want to put into our secant method or bisection methods or whichever method you want. 
+
+First you should plot it. That will give you some idea of where the zero is. Then use bisection or my favorite secant method to find the temperature T that will make this happen. It is easy enough to check this with algebra, so for our example 
+
+$$T = \sqrt[4]{\frac{20}{\sigma}} = \sqrt[4]{\frac{20}{5.652\times10^{-8}}} = 137.15$$
+
+
+---
+# day 19 | 251010 F
+
+Today, we continue to look into root finding, this time reviewing several techniques. I'll refer to the code at the bottom of this section.
+
+The bisection method is very simple to think through. Take two guesses that are on either side of the root. Find the midpoint between these guesses, and then decide whether that midpoint should be the new upper bound or lower bound. That decision is then repeated over and over until you reach a *desired tolerance*. This method is easy and works well as long as you made decent guesses of upper and lower bound. You should probably graph the function first to determine these, since it can be difficult to do without a good guess.
+
+Another clever way to do this is to use a line that is fit to an initial guess. This is known as Newton's Method, and in order to do this, we need to know the point as well as the derivative at that point. This is easy for many functions that we can write down algebraically but not all functions. But it works very quickly and is easy to understand. 
+
+The final method is a very good one, because we only need to provide one guess and we don't need to use or know the derivative function. We evaluate the function at two different places that are "near" by and then fit a line to that. The method itself works similarly to the Newton's method from there. 
+
+Homework is to do exercise 6.16, specifically part (B). 
+
+
+```python
+def bisection(function, lower_guess, upper_guess, tolerance=2**-32):
+    midpoint = (lower_guess + upper_guess)/2
+    while upper_guess - lower_guess > tolerance:
+        if function(lower_guess)*function(midpoint)<0:
+            upper_guess = midpoint
+            midpoint = (lower_guess + upper_guess)/2
+        elif function(midpoint)*function(upper_guess)<0:
+            lower_guess = midpoint
+            midpoint = (lower_guess + upper_guess)/2
+        elif function(lower_guess)*function(midpoint)>0 and function(midpoint)*function(upper_guess)>0:
+            print('no unique root in that bracket')
+            break
+    return(midpoint)
+
+def newton(f, df, guess, tolerance = 2**-32):
+    x = guess
+    n = 0
+    while abs(f(x)) > tolerance:
+        x = x - f(x)/df(x)
+        n += 1
+    return(x, n)
+
+def secant(f, guess, delta, tolerance = 2**-32):
+    x0 = guess
+    x1 = x0 + delta
+    n = 0
+    while abs(f(x1))>tolerance:
+        x1 = x1 - (x1-x0)/(f(x1)-f(x0))*f(x1)
+        n += 1
+    return(x1, n)
+```
+
+---
+# day 18 | 251008 W
+
+We began a series on root finding. What we mean by root finding is finding where (as in what x-value) a function is equal to zero. We can use these techniques to find the value of a function when it does not cleanly work out in the data that we have generated. It may in fact be difficult to interrogate a function backward like this. So we can employ several methods which we will look at in the coming days to help investigate this problem. 
+
+The first of these methods is the *relaxation method*. This method involves us making a guess and evaluating a function. So as an example we can use
+
+$$f(x) = x-e^{-x}$$
+
+There is no algebraic way to find a value for x that results in the output of this function being equal to zero. But we can take this equation and rearrange it somewhat:
+
+$$ x = e^{-x} $$
+
+Now we are going to look for values of x that give the same value on both sides of this equation. One very clever hack for this method is to simply set the value and reuse that on the other side of the equation. This is the method at the heart of the relaxation method. I'll make a guess, evaluate \(e^-x)\), then set that value no matter what it is equal to x, and then continue to re-evaluate \(e^-x)\). This will *slowly* creep up to the value that I am looking for. Below is the code that we will use to do this:
+
+```python
+x = 2 # initial guess
+error = 1 # initial error
+count = 0 # counting index to see how many steps
+while abs(error)>0.00001:
+    x1 = np.exp(-x)
+    error = x1 - x
+    x = x1
+    count = count + 1 
+    if count > 100000:
+        print('i couldnt find an answer so ignore this')
+        break
+print(x)
+print(count)
+```
+
+---
+# day 17 | 251006 M
+
+We took a day to work on homework assignments that are long over due. We worked together and debugged some code in class today.
+
+---
+# day 16 | 251003 F
+
+We will look at the question of whether decreasing the step size of a derivative always increases the accuracy (spoiler: it doesn't, and its complicated).
+
+We will also look into methods for differentiating DATA, which is similar and easy, but there are some "gotchas" there as well that we need to be aware of.
+
+Work exercise 5.15.
+
+---
+# day 15 | 251001 W
+
+We need to clean up some things from last time (see my email about this to you all). Then we will turn to differentiation, while we also work on some above average homework problems. These are exercises 5.9 and 5.12.
+
+We have been talking about how to do calculus, in particular the integral up till now. But how do we do the derivative? First of all, the calculus itself is nothing other than operations to find either the slope of a function (derivative) or the area under the curve of a function (integral). We often times lose track of what we are actually trying to do when we do this algebraically, so I think it is important to encounter the computational side of things to more fully grasp what is going on.
+
+First off, numerically doing derivatives is very simple, but it is not often done using computers for this reason. If you can do them in your head then why use a computer? But, this is not true for integrals! There are many integrals that do not have a closed form, algebraic solution; so computational methods are necessary to evaluate them. There are also problems with calculating derivatives as we will see, and so they are less used. 
+
+But, first of all we have the definition of the derivative from calculus class
+$$\frac{df}{dx} = \lim_{h \rightarrow 0}\frac{f(x+h)-f(x)}{h}$$
+And we can do this, just fine except that we cannot divide by zero. But we can make `h` small and maybe that is good enough. 
+$$\frac{df}{dx} \approx \frac{f(x+h)-f(x)}{h}$$
+This is an approximation that is known as the *forward difference*. And so naturally there is such a thing as the *backward difference*:
+$$\frac{df}{dx} \approx \frac{f(x) - f(x-h)}{h}$$
+
+Unfortunately, both of these methods have significant errors. Fortunately, they miss the true value in opposite directions. So we can simply *average* them and get a great approximation. This is known as the *central difference* or *mean finite difference* operator:
+$$\frac{df}{dx} \approx \frac{f(x+h)-f(x-h)}{2 h}$$
+
+If you need an even better method, then the symmetric four-point method is the one you want:
+$$\frac{df}{dx} \approx \frac{f(x+2h)-8f(x+h)+8f(x-h)-f(x-2h)}{12h}$$
+
+Now what do we choose for `h`? We already know that the smallest the computer can go is machine epsilon. But does that mean it is the best number to use? Let's take a simple function like 
+$$ f(x) = \frac{1}{3}x^3$$
+and evaluate the derivative of this function at x=1. And then we will compare the results to those we can do by hand. 
+
+Second derivatives are easy to derive from first derivatives. Using the central difference method:
+$$\frac{d^2f}{dx^2} \approx \frac{f'(x+h/2)-f'(x-h/2)}{h}$$
+$$\frac{d^2f}{dx^2} \approx \frac{[f(x+h)-f(x)]/h - [f(x)-f(x-h)]/h}{h}$$
+$$\frac{d^2f}{dx^2} \approx \frac{f(x+h)-2f(x) +f(x-h)}{h^2}$$
+
+So implementing a double derivative is not that much more difficult than a single derivative. 
+
+```
+
+def back(function,x_value, stepSize):
+    return (function(x_value)-function(x_value-stepSize))/stepSize
+
+def forward(function,x_value, stepSize):
+    return (function(x_value+stepSize)-function(x_value))/stepSize
+
+def mid(function,x_value, stepSize):
+    return (function(x_value+stepSize)-function(x_value-stepSize))/(2*stepSize)
+
+def doubled(function, x_value, stepSize):
+    return (function(x_value+stepSize)-2*function(x_value)+function(x_value-stepSize))/(stepSize**2)
+```
+
+---
+# day 14 | 250929 M
+
+We will discuss some other integration methods. We will talk though some quadritures (which is an old word for numerical integration). I have some defined below, but we will also use a function that is provided to us by the author, namely `gaussxy.py` which has a couple of methods within it that we will use. It is important to note that you need to have this python script put in the same folder that you are going to call it from, so whether that is here in `develop` for today, or a copy in `deliver` for any homework, you'll need it in both places. Also, as I mentioned in the email I sent you, this particular bit of script has been updated by the author, so the version that you have in your `data` folder will only work if you look at it and make it work for you. 
+
+We also looked at integrals over infinite ranges, and we used a change in variables to handle those situations. In most cases you can make the following substitution:
+
+$$z = \frac{x}{1+x} \quad \longleftrightarrow \quad x = \frac{z}{1-z}$$
+
+There are other variations on this that you should be aware of like 
+
+$$z = \frac{x-a}{1+x-a}$$ 
+
+but in either case 
+
+$$dx=\frac{dz}{(1-z)^2}$$
+
+Now you can integrate either from 0 -> $\infty$ or a -> $\infty$. To do the other side like from $-\inf$ to 0 or to a, then make z -> -z up above.
+
+---
+# day 13 | 250926 F
+
+These days got away from me with the notes. I think we worked on some homework problems as well as integrating a set of data rather than a function. This point is worth emphasizing. When you have data provided to you, or produced from a machine and recorded, there are limitations to how many points you can use to integrate up. So the trapezoid method is likely the best case since it is so simple to implement and use. Simpson's method is trickier because you have to have an odd number of points. So you can use Simpson's method for the odd number and then trapezoid at the end for the last point if you want, and that is what many codes do. Here is one that I cooked up last spring that beat scipy's integrate function in a contest that i am very proud of:
+
+```
+def integrate(x, y):
+    '''simpson's rule for integration with simpson’s 3/8 rule adjustment for even-length data'''
+    
+    if isinstance(x, pd.Series):
+        x = x.to_numpy()
+        y = y.to_numpy()
+    
+    steps = len(y)
+
+    h = (x[-1] - x[0]) / (steps - 1)  # step size (ensuring correct intervals)
+    
+    if steps % 2 == 1:  # odd number of points -> use standard Simpson's 1/3 rule
+        s = (h / 3) * (y[0] + y[-1] + 4 * np.sum(y[1:steps-1:2]) + 2 * np.sum(y[2:steps-2:2]))
+    
+    else:  # even number of points -> use Simpson’s 1/3 rule for first n-3 and 3/8 rule for last three
+        s_simpson = (h / 3) * (y[0] + y[-3] + 4 * np.sum(y[1:steps-3:2]) + 2 * np.sum(y[2:steps-4:2]))
+        s_three_eighth = (3 * h / 8) * (y[-3] + 3 * y[-2] + 3 * y[-1] + y[-1])  # last 3 points
+        s = s_simpson + s_three_eighth
+
+    return s
+```
+
+See if you can improve it!
+
+---
+# day 12 | 250924 W
+
+I have no idea do you?
+
+Katie Marie says refer to day 11.... 
+
+---
 # day 11 | 250922 M
 
 Today we will continue with integration, but we will flip the script and you will work together to implement Simpson's Rule and do exercises 5.2 and 5.3. Simpson's Rule is based on fitting a parabola to a portion of the curve we are interested in and then iterating over each parabola. So look at equation 5.9 on page 146 in the textbook and figure out how to pull that off in python using the numpy.sum function.
@@ -212,5 +505,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 11721 bytes to README.md
+    [NbConvertApp] Writing 28802 bytes to README.md
 
