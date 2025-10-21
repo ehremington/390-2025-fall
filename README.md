@@ -6,7 +6,20 @@ This is where I'll record hopefully before class what we will be doing. Please c
 ---
 # day 22 | 251020 M
 
-I discovered a problem with our secant method and have a fix for it below. This is embarrassing but it is important to realize that it can be hard to figure out a bug with code when the code almost works. There was nothing telling me it was broken and the answers it gave were frequently correct, but the problem was deeply buried and finally raised its head the other day (day 20) when we were working on solving a fairly simple equation. So go check the updated notes from day 20 to see what happened.
+I discovered a problem with our secant method and have a fix for it below. This is embarrassing but it is important to realize that it can be hard to figure out a bug with code when the code almost works. There was nothing telling me it was broken and the answers it gave were frequently correct, but the problem was deeply buried and finally raised its head the other day (day 20) when we were working on solving a fairly simple equation. So go check the updated notes from day 20 to see what happened, but here is the correct version (I have also corrected it everywhere else that I could find it.)
+
+```python
+def secant(f, guess, delta=1, tolerance = 2**-32):
+    x0 = guess
+    x1 = x0 + delta
+    n = 0
+    while abs(f(x1))>tolerance:
+        x2 = x1 - (x1-x0)/(f(x1)-f(x0))*f(x1)
+        x0 = x1
+        x1 = x2
+        n += 1
+    return(x1, n)
+```
 
 We did this in class in excel but then bonked when things weren't working correctly. So here is a correct way to do it for next time. 
 
@@ -505,5 +518,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 28802 bytes to README.md
+    [NbConvertApp] Writing 32259 bytes to README.md
 
