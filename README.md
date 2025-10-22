@@ -2,6 +2,21 @@
 
 This is where I'll record hopefully before class what we will be doing. Please check here and read before class, so you'll have an idea of what we will cover that day. 
 
+---
+# day 23 | 251022 W
+
+Today we will continue to work with Euler's Method for solving differential equations, but this time we will turn to python to solve this problem now that we have some experience with Excel. We will talk about how to handle these first order differential equations that have only one variable on the right hand side, and then we will talk about how to handle them if they have two variables. These look like these two equations:
+
+$$
+\begin{align}
+\frac{dy}{dx} &= x^2 +x-1  \\
+\frac{dy}{dx} &= y^3 + \sin x
+\end{align}
+$$
+
+Euler's Method is good, but the error grows over time as we have seen. This is part of every solution to differential equations, but it is something that we want to minimize. Next time, we will discuss some methods that will be better than Euler's method and won't take much longer to work through. 
+
+Take a look at exercise 6.1 from the text book and we'll work on that next time.
 
 ---
 # day 22 | 251020 M
