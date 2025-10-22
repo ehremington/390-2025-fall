@@ -518,5 +518,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 32259 bytes to README.md
+    [NbConvertApp] Writing 32610 bytes to README.md
 
