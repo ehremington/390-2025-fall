@@ -9,7 +9,7 @@ Today we will continue to work with Euler's Method for solving differential equa
 
 $$
 \begin{align}
-\frac{dy}{dx} &= x^2 +x-1  \\
+\frac{dy}{dx} &= x^2 +x-1  \\\
 \frac{dy}{dx} &= y^3 + \sin x
 \end{align}
 $$
@@ -533,5 +533,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 32610 bytes to README.md
+    [NbConvertApp] Writing 33540 bytes to README.md
 
