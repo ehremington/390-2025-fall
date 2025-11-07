@@ -1,6 +1,66 @@
 # Daily Log
 
+---
+# day 28 | 251103
+
+---
+# day 27 | 251031 F
+
 This is where I'll record hopefully before class what we will be doing. Please check here and read before class, so you'll have an idea of what we will cover that day. 
+
+We are now ready to handle 2nd order differential equations. The method will be similar to coupled first order equations because that is exactly how we will treat any second order equation: as a set of coupled first order equations like below.
+
+Let's take an example second order equation and look at the technique. We will take a mass on a spring under damped conditions:
+
+$$ ma = -c v - k x$$
+
+The first thing we want to do is put this in terms of all of the derivative:
+
+$$m\frac{d^2 x}{dt^2} = -c\frac{dx}{dt} - k x $$
+
+Then we want to isolate the second derivative. 
+
+$$\frac{d^2 x}{dt^2} = -\frac{c}{m}\frac{dx}{dt} - \frac{k}{m} x $$
+
+Then we want to break this up into two first order differential equations. And this looks a little bit backwards, but we need to realize that we just replaced \$v$ with \$\frac{dx}{dt}$ so what if we went backwards that in terms of the substitution of variables.
+
+$$\frac{d v}{dt} = -\frac{c}{m} v - \frac{k}{m} x $$
+
+and then 
+
+$$ \frac{dx}{dt} = v$$
+
+So now we can run this exactly the same way that we did coupled first order equations, because that is what they are! And we can choose almost any kind of differential equation that we want to. To start off with we may just choose an object falling from some height. The initial height is an important initial value and the fact that we are dropping it is important since the initial velocity will be equal to zero.
+
+$$a = -g\ =>\  \frac{d^2x}{dt^2}\ =>\ \frac{dv}{dt} = -g \quad \mbox{and} \quad \frac{dx}{dt} = v $$
+
+And this same logic can be applied to other sets, so we could cover linear drag:
+
+$$\frac{dv}{dt} = -g - \frac{c}{m} v \quad \mathrm{and} \quad \frac{dx}{dt} = v $$
+
+Or we can do quadratic drag but you do have to be more careful since the signs are more tricky:
+
+$$\frac{dv}{dt} = -g + \frac{c}{m} v^2 \quad \mathrm{and} \quad \frac{dx}{dt} = v$$
+
+For this case you have to watch out for the *SIGNS* of the velocity because they are squared and there is not an easy way to handle them if the object comes to rest and changes direction.
+
+Work on exercise 8.5 after you have reviewed the example 8.6 and exercise 8.4.
+
+---
+# day 26 | 251029 W
+
+Today we will review coupled first order differential equations. There are some significant changes we need to make to portions of our code, but at the end of the day these changes will set us up nicely for the next topic (second order differential equations!). The most important different is that we will be plugging in an array in the place of our dependent variables (like x and y), and this change will allow our program to handle the variation of these variables all at once, a rather elegant solution but one that requires you to really follow what is going on. In class, you will likely have time to complete the homework assignment which is exercises 5.2 and 5.3. 
+
+---
+# day 25 | 251027 M
+
+Today we will continue in our study of differential equations by looking at exercise 8.1, and extending that a bit. Then we will look at differential equations with more than one variable. More than two variables actually. This will be a very important technique for us because this will lead us into second order differential equations, which is very much what physicists are interested in. This change will be slight, but important and we'll have to be careful about how we handle our variables. For this reason we will start to treat time t as our independent variable, and x and y (and z!) as our dependent variables. 
+
+---
+# day 24 | 251024 F
+
+We have worked on Euler's method and have a decent way to do that. But there are other methods that work even better and don't take that much more calculation to do. These methods all go by the name Runge-Kutta. Newton's method is actually 1st order Runge-Kutta. 2nd order Runga-Kutta and 4th order Runga-Kutta are what we are going to talk about today. 
+
 
 ---
 # day 23 | 251022 W
@@ -533,5 +593,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 33540 bytes to README.md
+    [NbConvertApp] Writing 36731 bytes to README.md
 
