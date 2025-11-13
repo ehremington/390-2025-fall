@@ -1,7 +1,60 @@
 # Daily Log
 
 ---
-# day 28 | 251103
+# day 32 | 251112 W
+
+We began by talking through what a partial differential equation actually is. To understand this, you first need to understand what a partial derivative is:
+
+$$f(x, y, z) = 4 x y^2 z^4 $$ 
+
+$$\frac{\partial f}{\partial x} = 4 y^2 z^4$$
+
+$$\frac{\partial f}{\partial y} = 8 x y z^4 $$
+
+So a partial derivative is a derivative of a function with respect to one single variable, treating the other variables as constants. Not too bad right. Furthermore, second partial derivatives are second derivatives treating the other variables as constants, but this can be a little bit trickier:
+
+$$frac{\partial^2 f}{\partial x^2} = 0$$
+
+$$\frac{\partial^2 f}{\partial x \partial y} = 8 y z^4$$
+
+Do you see that? I can take a partial derivative with respect to one variable on a function that is already a partial derivative of a different variable. Tricky stuff and you have do be careful. BUT!
+
+We are not solving partial derivatives using analytical techniques, but using **numerical techniques**. Which actually eases the burden quite a bit. However each partial differential equation, will need to be taken one at a time, in order to come up with a method to numerically solve it. Fortunately, most second order partial differential equations in physics take on just a few forms, so we should be able to learn a couple of techniques, and the apply them to many equations.
+
+So first, we will take **Laplace's Equation**, and solve it in 2 dimensions. Laplace's equation looks like this:
+
+$$\nabla^2 V = 0 $$
+
+Now that upside down *delta* character looks bad. But another way to write this equation is like this:
+
+$$\frac{\partial^2 V}{\partial x^2}+\frac{\partial^2 V}{\partial y^2} = 0 $$
+
+So, to solve such an equation we also need **boundary conditions**. These will take the form of what is the potential around the outside of this region? For a square/rectangleish region this might be something like the potential (V) is zero along all of the edges except the top boundary (have a look at p 407). So, in order to solve this, we will use the relaxation technique, where we the solution at any particular point is the average of the solution at all of the points all around it. You may be seeing the circularity of the kind of calculation we are about to do. The value of the potential at any point depends on the value at every other point, which depends on the value at the other points and so on...
+
+So to pull this off, first we are going to use excel to do this. You have to enable a setting that allows recursive calculations. But once you have done this you can run that method over and over (Ctrl+Shift+F9 on my computer/program) and this will eventually give you the answer that you can plot. Plotting this in excel is horrible, so I recommend plotting it in jupyter, and I show you below how to do that.
+
+---
+# day 31 | 251110 M
+
+
+
+---
+# day 30 | 251107 F
+Projects are due today! Or at least nearly today! I have told some students that if you can make your project 50% better by turning it in on Sunday then that is ok with me. So take that into account. I know many students are happy to have it off their plate and have turned it in already, but if you hit some snags along the way, you may turn it in as late as Sunday.
+
+Now, today we are doing to talk about our differential equations and how to move to higher dimensions. This is a relatively easy change give how we have constructed our solver. With this change we can both solve initial value problems as well as solve boundary value problems. 
+
+--- 
+# day 29 | 251105 W
+
+Today we worked on the shooting method. This is a way of solving differential equations by using the **boundary condition** rather than the **initial conditions**. This method is more difficult to do in terms of computational resources, but method is straightforward. We simply try a bunch of times with different initial conditions until we get really close to the other boundary. It is not very smart, but it is effective and it is easy to code up, because we define a function that solves the differential equation and then we plug that into a root finding algorithm to keep evaluating that function until we find the root. That root means that we hit our target. 
+
+We'll start this today with one dimensional motion, which is a little weird to imagine. We have a ball that we are going to toss straight up into the air. How fast will we need to throw it to land on the ground 10 seconds later. This is a little strange because we normally would want to know how long it takes to come back down given we threw it as hard as we could. Another way that you could frame our current question is, "If I time how long it takes to go up and come down, then how fast did I throw it?" This is what we will work through today.
+
+---
+# day 28 | 251103 M
+
+Today we worked on our projects in class and I had a chance to see everyone's and give some pointers.
 
 ---
 # day 27 | 251031 F
@@ -593,5 +646,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 36731 bytes to README.md
+    [NbConvertApp] Writing 37451 bytes to README.md
 
