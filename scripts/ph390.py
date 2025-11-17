@@ -2,6 +2,9 @@
 
 # this is my file where i am putting things that i use all the time in here
 
+import numpy as np
+import pandas as pd
+
 def factorial(x):
     f = 1
     if x<0:
