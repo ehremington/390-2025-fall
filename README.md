@@ -1,5 +1,29 @@
 # Daily Log
 
+
+---
+# day 36 | 251121 F
+
+We are going to look at the heat equation, also known as the diffusion equation. The method to solve this partial differential equation is known as *Forward-Time Centered-Space* Method, or *FTCS* for short. What this means is actually very simple, we are going to solve for the temperature along a rod as time is ticking by. The amount that the temperature is going to advance is equal to the second derivative of how the temperature is arranged over space. This will continue until the second derivative is zero, which means that the temperature is no longer changing along the rod. The PDE for this is the equation:
+
+$$\frac{\partial^2 T}{\partial x^2} = \frac{d T}{d t} $$
+
+The boundary conditions for this PDE are simply the temperatures that this is being held at the two ends. We know that eventually the temperature will change in a linear fashion along this length (\\(\frac{\partial^2 T}{\partial x^2} = 0\\)), but we are also curious about how this changes over time. So what we will do is code up a method for solving this as time is ticking by and then save a few of these temperature profiles to plot at some interesting times.
+
+I would like for you to solve exercise 9.4. 
+
+---
+# day 35 | 251119 W
+
+
+---
+# day 34 | 251117 M
+
+
+---
+# day 33 | 251114 F
+
+
 ---
 # day 32 | 251112 W
 
@@ -13,7 +37,7 @@ $$\frac{\partial f}{\partial y} = 8 x y z^4 $$
 
 So a partial derivative is a derivative of a function with respect to one single variable, treating the other variables as constants. Not too bad right. Furthermore, second partial derivatives are second derivatives treating the other variables as constants, but this can be a little bit trickier:
 
-$$frac{\partial^2 f}{\partial x^2} = 0$$
+$$\frac{\partial^2 f}{\partial x^2} = 0$$
 
 $$\frac{\partial^2 f}{\partial x \partial y} = 8 y z^4$$
 
@@ -36,6 +60,44 @@ So to pull this off, first we are going to use excel to do this. You have to ena
 ---
 # day 31 | 251110 M
 
+Adding a startup script to `~/.ipython/profile_default/startup` is a very handy way to have common imports handled automatically for lab notebook style managment.
+
+File naming is weird. Mine is `00-myImports.ipy`. For some reason this is necessary I think. See the README in the directory for more info.
+
+Currently my script is the following:
+
+```python
+%matplotlib ipympl
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+```
+
+This goes just fine for Mac users, but Windows users need to be careful to turn on showing file extensions. You can do this in File Explorer by clicking on View -> More -> Show file extensions. 
+
+## also our custom library of scripts
+
+For linux users, add the following to `.bashrc` in your home folder. For Mac users, add the same thing to the file `.zshrc`. Note that after `$HOME` your path might be different than mine.
+
+```
+# adding ph390 to my PATH but make sure the path is correct
+export PYTHONPATH="${PYTHONPATH}:$HOME/Dropbox/390-fall-2025/scripts/"
+```
+
+One way that you can check is by doing this in a jupyter lab cell:
+
+```python
+import sys
+print(sys.path)
+```
+
+For Windows users, you need to click Start and type in Environment Variables and select Edit the System Environment Variables. Under user variables add one named PYTHONPATH and give it the value `%USERPROFILE%\Dropbox\390-2025-fall\scripts`. Saving and exiting should do it. Verify by starting jupyter and entering the code above.
+
+to check on things and see whether they are working:
+
+1. just try `np.linspace(1,20)` and see whether that executes without a hiccup.
+2. next try `import ph390` and see if that complains. note that this will only work once you have `__inti__.py` and `ph390.py` in that `scripts` folder, even if they are empty. Put a bisection method script in there and see whether you can call it.
 
 
 ---
@@ -646,5 +708,5 @@ Here is chapter 2 of the book: [chapter 2](2-programming.pdf)
 
 
     [NbConvertApp] Converting notebook Daily_Log.ipynb to markdown
-    [NbConvertApp] Writing 37451 bytes to README.md
+    [NbConvertApp] Writing 42338 bytes to README.md
 
